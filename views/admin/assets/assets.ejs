@@ -1,0 +1,379 @@
+<h2 class="text-center">فایل های آراست - ASSETS</h2>
+
+
+<div class="row">
+
+    <div class="col-8">
+
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-12 col-lg-offset-2">
+
+                    <div class="margin-top-50">
+
+                        <h3 class="">
+                            <input type="text" class="input-group" id="myInput" onkeyup="myfunction()"
+                                placeholder="SEARCH ..." />
+                        </h3>
+                        <h3 class="">
+                            <a onclick="" class="btn btn-primary btn-block">جدید</a>
+                        </h3>
+
+                    </div>
+
+
+                    <div>
+
+                        <table class="table table-bordered table-hover" id="myTable">
+
+                            <thead>
+
+                                <tr>
+                                    <th>
+                                        نام دسته بندی
+                                    </th>
+                                    <th>
+                                        عملیات ها
+                                    </th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+
+
+
+
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+    <div class="col-4">
+
+
+
+        <div id="accordion">
+
+
+            <% category.forEach(element=> { %>
+                <div class="card mb-0">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0 mt-0 font-14">
+                            <div class="row">
+                                <div class="col-8">
+                                    <a onclick="fetchSubcategories(<%= element.Id %>)" data-toggle="collapse"
+                                        data-parent="#accordion" href="#collapse<%= element.Id %>" aria-expanded="true"
+                                        aria-controls="collapse<%= element.Id %>" class="text-dark">
+                                        <%= element.CategoryPersianName %>
+                                    </a>
+
+
+                                </div>
+
+
+
+                                <button onclick="AddCollection(<%= element.Id %>)" class="btn-circle btn-warning"><i
+                                        class="mdi mdi-animation"></i></button>
+
+
+                                <a href="/asset/Collection/<%= element.Id %>" class="btn-circle btn-dark">پک
+                                    ها</a>
+
+                            </div>
+
+                        </h5>
+                    </div>
+
+                    <div id="collapse<%= element.Id %>" class="collapse " aria-labelledby="heading<%= element.Id %>"
+                        data-parent="#accordion">
+                        <div class="card-body">
+
+                            <table class="table mb-0">
+                                <tbody>
+                                <tbody id="subcategoryTable<%= element.Id %>"></tbody>
+                                </tbody>
+                            </table>
+                            <!--            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <tbody>
+                                      <tbody id="subcategoryTable<%= element.Id %>"></tbody>
+                                    </tbody>
+                                  </table>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+
+                <% }); %>
+
+
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+    async function fetchSubcategories(id) {
+        try {
+            const response = await fetch('/category/getCategory/' + id); // Replace '1' with the actual category ID
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+            }
+
+            const subcategories = await response.json();
+            renderSubcategoriesTable(subcategories, id);
+        } catch (error) {
+            console.error('Error:', error.message);
+            alert('Failed to fetch subcategories. Please try again.');
+        }
+    }
+
+
+    function renderSubcategoriesTable(subcategories, id) {
+        const tableBody = document.getElementById('subcategoryTable' + id);
+        tableBody.innerHTML = ''; // Clear previous table rows
+
+        if (subcategories.length > 0) {
+            subcategories.forEach(subcategory => {
+                const row = document.createElement('tr');
+                // Modify this line to display the desired properties from the subcategory object
+                row.innerHTML = `
+        <td>${subcategory.SubCategoryName}</td>
+        <td>
+                                    <button onclick="ReadFilesAsync(${subcategory.Id})"  class="btn-circle btn-info"><i class="mdi mdi-animation"></i></button>
+                                    <button onclick="Add(${subcategory.Id})"   class="btn-circle btn-success"><i class="mdi mdi-clipboard-plus"></i></button>
+                                 
+
+<button onclick="AddWithoutInformation(${subcategory.Id})" class="btn-circle btn-warning"><i
+        class="mdi mdi-folder"></i></button>
+
+   
+        </td>
+        `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="2">هیچ زیر دسته‌ای یافت نشد.</td>';
+            tableBody.appendChild(row);
+        }
+    }
+
+// Call the fetch function on page load or when needed
+
+
+
+
+</script>
+
+
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+
+
+
+
+<div id="myModal" class="modal  fade" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog modal-xl" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div id="bodyModal" class="modal-body">
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    function Info(id) {
+        $.ajax({
+            url: "/asset/getAssetInfo/" + id,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+
+
+    function Add(id) {
+        $.ajax({
+            url: "/asset/UploadAsset/" + id + "/" + 0,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+    function AddWithoutInformation(id) {
+        $.ajax({
+            url: "/asset/UploadAssetsWithoutInformation/" + id,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+    function AddByAssetId(id, assetId) {
+        $.ajax({
+            url: "/asset/UploadAsset/" + id + "/" + assetId,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+
+    function AddCollection(id) {
+        $.ajax({
+            url: "/asset/AddCollectionByCategory/" + id,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+
+    function myfunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (var i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+
+
+
+
+    const getDataButton = document.getElementById('getDataButton');
+    const dataTable = document.getElementById('myTable');
+    const tbody = dataTable.querySelector('tbody');
+
+    function ReadFilesAsync(id) {
+        fetch('/asset/getFileAssetsByCategoryId/' + id) // Adjust URL if needed
+            .then(response => response.json())
+            .then(data => {
+                tbody.innerHTML = ''; // Clear table body
+
+                data.forEach(row => {
+                    console.log(row); // Check data structure
+
+                    const tr = document.createElement('tr');
+                    const titleTd = document.createElement('td');
+                    const valueTd = document.createElement('td');
+
+                    titleTd.textContent = row.PersianName || '---'; // Handle missing title
+                    valueTd.innerHTML =
+                        `
+        <td>
+                                    <button onclick="AddByAssetId(${row.Id})"  class="btn-circle btn-success"><i class="mdi mdi-link"></i></button>
+                                    <button onclick="Info(${row.Id})"  class="btn-circle btn-info"><i class="mdi mdi-information-outline"></i></button>
+
+            
+        </td>
+        `;
+
+                    tr.appendChild(titleTd);
+                    tr.appendChild(valueTd);
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+                // Display an error message to the user here (e.g., alert, modal)
+            });
+    }
+
+</script>

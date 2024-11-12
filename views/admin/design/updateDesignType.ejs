@@ -1,0 +1,127 @@
+<% if (photo) { %>
+
+
+    <form method="POST" action="/design/EditDesignTypePhotoDashboard" enctype="multipart/form-data">
+
+        <h2 class="text-center"><%= designType.DesignName %></h2>
+        
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input class="form-control" name="DesignId" type="hidden" value="<%= designType.Id %>"
+                    id="example-email-input">
+            </div>
+        </div>
+
+        <br />
+
+        <div class="fallback">
+            <h4>فایل تصویری نمایش در داشبورد</h4>
+            <input name="DesignCategoryPhoto" type="file">
+        </div>
+
+        <br />
+        <br />
+        <button type="submit" class="btn btn-warning">ویرایش عکس دیزاین تایپ</button>
+    </form>
+
+
+
+<% } else { %>
+
+
+    <form method="POST" action="/design/EditDesignType" enctype="multipart/form-data">
+
+        <div class="form-group row">
+            <label for="example-text-input" class="col-sm-2 col-form-label">نام دیزاین</label>
+            <div class="col-sm-10">
+                <input class="form-control" name="DesignName" value="<%= designType.DesignName %>"
+                    id="example-text-input">
+            </div>
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-6">
+                <label for="example-email-input" class="col-form-label">عرض دیزاین</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="number" placeholder="Width"
+                        value="<%= designType.DesignWidth %>" name="DesignWidth" id="example-email-input">
+                </div>
+            </div>
+
+
+            <div class="col-6">
+                <label for="example-email-input" class="col-form-label">طول دیزاین</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="number" placeholder="Height"
+                        value="<%= designType.DesignHeight %>" name="DesignHeight" id="example-email-input">
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input class="form-control" name="DesignId" type="hidden" value="<%= designType.Id %>"
+                    id="example-email-input">
+            </div>
+        </div>
+
+        <br />
+
+        <h4 class="text-center">رنگ های تحت پشتیبانی - رنگ پس زمینه ویرایشگر</h4>
+        <div class="container">
+            <div class="row">
+
+                <div class="col-6">
+                    <a class="btn " id="Persian" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;     
+                height: 30px;">رنگ اصلی آراست ادیتور</a>
+
+
+
+                </div>
+                <div class="col-6">
+                    <input name="DesignBackgroundColor" class="text-center"
+                        value="<%= designType.DesignBackgroundColor %>" id="DesignBackgroundColor"></input>
+                </div>
+            </div>
+
+        </div>
+
+
+        <br />
+        <br />
+        <button type="submit" class="btn btn-warning">ویرایش دیزاین تایپ</button>
+    </form>
+
+    <script>
+        // آرایه برای ذخیره id های دکمه ها
+        let clickedIds = [];
+
+        function showButtonId(buttonId) {
+            // اگر id تکراری نباشد، آن را به آرایه اضافه کن
+            if (!clickedIds.includes(buttonId)) {
+                clickedIds.push(buttonId);
+            } else {
+                // اگر id تکراری بود، آن را حذف کن
+                clickedIds = clickedIds.filter(id => id !== buttonId);
+            }
+
+            // نمایش آرایه جدید در کنسول
+            console.log("Clicked button ids:", clickedIds);
+            printClickedIds()
+        }
+
+        // تابع برای چاپ آرایه clickedIds
+        function printClickedIds() {
+            document.getElementById("DesignBackgroundColor").value = clickedIds
+        }
+    </script>
+
+
+
+<% } %>
+

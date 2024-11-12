@@ -1,0 +1,28 @@
+<form method="POST" action="/store/RejectDesignRequest">
+
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-center  text-danger">رد دیزاین</h3>
+
+        </div>
+        <div class="col-6">
+            <button type="submit" class="btn btn-danger btn-block">ارسال رد درخواست دیزاین</button>
+
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input class="form-control" name="DesignId" type="hidden" value="<%= DesignId %>">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="example-email-input" class="col-sm-2 col-form-label">علت رد شدن این دیزاین چیست؟</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="ReasonReject"></textarea>
+        </div>
+    </div>
+</form>

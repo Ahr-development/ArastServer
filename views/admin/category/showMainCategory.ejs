@@ -1,0 +1,173 @@
+
+
+
+
+
+    
+<h2 class="text-center">Get All Category</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+
+        <div class="col-lg-12 col-lg-offset-2">
+    
+            <div class="margin-top-50">
+    
+                <h3 class="">
+                    <input type="text" class="input-group" id="myInput" onkeyup="myfunction()" placeholder="SEARCH ..." />
+                </h3>
+                <h3 class="">
+                    <a onclick="" class="btn btn-primary btn-block">جدید</a>
+                </h3>
+    
+            </div>
+    
+    
+            <div>
+    
+                <table class="table table-bordered table-hover" id="myTable">
+    
+                    <thead>
+    
+                        <tr>
+                            <th>
+                                نام دسته بندی
+                            </th>
+                            <th>
+                                عملیات ها
+                            </th>
+                        </tr>
+    
+                    </thead>
+    
+                    <tbody>
+                        <% category.forEach(element=> { %>
+    
+                            <tr>
+                                <td> <%= element.CategoryPersianName %> </td>
+                                <td>
+                                    <a href="/category/assetsSubCategory/<%= element.Id %>" class="btn btn-dark">مشخصه</a>
+                                    <a href="/admin/subcategory/@item.Id" class="btn btn-success">زیردسته</a>
+                                    <a  class="btn btn-warning">ویرایش</a>
+                                    <a  class="btn btn-danger">حذف</a>
+    
+                                </td>
+                            </tr>
+    
+                            <% }); %>
+    
+                  
+    
+                        
+                    </tbody>
+    
+                </table>
+    
+    
+            </div>
+    
+        </div>
+    
+    
+    
+    </div>
+    
+
+</div>
+
+
+
+
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div id="bodyModal" class="modal-body">
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+    <script>
+
+        function InsertCategory(id) {
+            $.ajax({
+                url: "/Admin/InsertCategory/" + id,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#myModal').modal('show');
+                $('#bodyModal').html(result);
+            });
+        }
+
+
+        function DeleteCategory(id) {
+            $.ajax({
+                url: "/Admin/DeleteCategory/" + id,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#myModal').modal('show');
+                $('#bodyModal').html(result);
+            });
+        }
+
+
+
+        function EditCategory(id) {
+            $.ajax({
+                url: "/Admin/EditCategory/" + id,
+                type: "Get",
+                data: {}
+            }).done(function (result) {
+                $('#myModal').modal('show');
+                $('#bodyModal').html(result);
+            });
+        }
+
+    </script>
+
+
+<script>
+
+    function myfunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        for (var i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

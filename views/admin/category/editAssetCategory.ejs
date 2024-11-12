@@ -1,0 +1,91 @@
+<% if (data.typeCategory=="SubCategory" ) { %>
+
+    <form method="POST" action="/category/editCategory">
+
+        <div class="form-group row">
+            <label for="example-text-input" class="col-sm-3 col-form-label">نام زیر دسته بندی</label>
+            <div class="col-sm-9">
+                <input class="form-control" type="name" name="SubCategoryName" value="<%= data.category.SubCategoryName %>" id="example-text-input">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input class="form-control" name="CategoryId" type="hidden" value="<%= data.idCategory %>" id="example-email-input">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <input class="form-control" name="TypeCategory" type="hidden" value="<%= data.typeCategory %>" id="example-email-input">
+            </div>
+        </div>
+    
+
+
+        <button type="submit" class="btn btn-warning">ویرایش زیر دسته</button>
+    </form>
+
+    <% } else { %>
+
+        <form method="POST" action="/category/editCategory">
+
+            <div class="form-group row">
+                <label for="example-text-input" class="col-sm-2 col-form-label">نام دسته بندی ( فارسی (</label>
+                <div class="col-sm-10">
+                    <input class="form-control"  name="CategoryPersianName" value="<%= data.category.CategoryPersianName %>"
+                        id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="example-email-input" class="col-sm-2 col-form-label">نام دسته بندی - انگلیسی</label>
+                <div class="col-sm-10">
+                    <input class="form-control"  name="CategoryEnglishName" value="<%= data.category.CategoryEnglishName %>"
+                        id="example-email-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input class="form-control" name="CategoryId" type="hidden" value="<%= data.idCategory %>" id="example-email-input">
+                </div>
+            </div>
+        
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <input class="form-control" name="TypeCategory" type="hidden" value="<%= data.typeCategory %>" id="example-email-input">
+                </div>
+            </div>
+        
+            
+            <div class="form-group row">
+                <label for="example-email-input" class="col-sm-2 col-form-label">نام دسته بندی - عربی</label>
+                <div class="col-sm-10">
+                    <input class="form-control"  name="CategoryArabicName" value="<%= data.category.CategoryArabicName %>"
+                        id="example-email-input">
+                </div>
+            </div>
+
+
+            
+            <div class="form-group row">
+                <label for="example-email-input" class="col-sm-2 col-form-label">توضیحات دسته بندی فارسی</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" 
+                        id="example-email-input" name="CategoryDescription">
+                        <%= data.category.CategoryDescription %>
+                    </textarea>
+                </div>
+            </div>
+
+
+            
+
+
+
+            <button type="submit" class="btn btn-warning">ویرایش زیر دسته</button>
+        </form>
+
+
+        <% } %>

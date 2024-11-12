@@ -1,0 +1,58 @@
+
+
+
+
+<form id="dynamic-form" method="POST" action="/asset/OverrideCollection" enctype="multipart/form-data" >
+
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input class="form-control" name="CollectionId" type="hidden" value="<%= CollectionId %>"
+                id="example-email-input">
+        </div>
+    </div>
+
+
+    <br/>
+    <br/>
+
+
+    <button type="button" class="btn btn-warning btn-block" id="add-section-btn">ایجاد فایل جدید</button>
+    <br/>
+    <br/>
+
+    <div id="form-container"></div>
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-success">ایجاد کالکشن جدید</button>
+</form>
+
+
+<script>
+    let sectionIndex = 0;
+
+    document.getElementById('add-section-btn').addEventListener('click', function () {
+        const formContainer = document.getElementById('form-container');
+        const newSection = document.createElement('div');
+        newSection.classList.add('form-section');
+        newSection.innerHTML = `
+        <br/>
+
+            <input type="file" name="file_${sectionIndex}" required>
+            <input type="text"  class="form-control" name="hashtags_${sectionIndex}" placeholder="هشتگ ها" required>
+            <input type="text"  class="form-control" name="fileName_${sectionIndex}" placeholder="نام فایل" required>
+            <br/>
+
+        `;
+        formContainer.appendChild(newSection);
+        sectionIndex++;
+    });
+
+
+</script>
+
+
+
+
+

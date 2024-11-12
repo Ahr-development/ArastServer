@@ -1,0 +1,208 @@
+<h4 class="text-center">آپلود فایل جدید</h4>
+<br />
+
+<form method="POST" action="/asset/UploadAsset" enctype="multipart/form-data">
+
+    <div class="form-group row">
+        <label for="example-text-input" class="col-sm-2 col-form-label">عنوان فایل فارسی</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="PersianName" id="example-text-input">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input class="form-control" name="CategoryId" type="hidden" value="<%= local.categoryID %>"
+                id="example-email-input">
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="example-email-input" class="col-sm-2 col-form-label">توضیحات دسته بندی فارسی</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="Description" id="example-email-input"></textarea>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col-6">
+            <div class="form-group row">
+                <div class="col-12">
+                    <input class="form-control" name="PriceIRR" placeholder="قیمت به تومان" type="number"
+                        id="example-email-input">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <br />
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+                <a class="btn " id="blue" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: blue;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="green" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: green;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="red" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: red;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="yellow" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: yellow;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="orange" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: orange;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="pink" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: pink;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="white" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: white;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="black" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: black;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn" id="Gray" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: gray;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="Brown" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: brown;   width: 40px;
+                    height: 30px;"></button>
+                    <a class="btn " id="Cyan" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: cyan;   width: 40px;
+                    height: 30px;"></button>
+                        <a class="btn " id="Purple" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: purple;   width: 40px;
+                    height: 30px;"></a>
+
+            </div>
+            <div class="col-6">
+                <input name="ColorUsing" class="text-center" id="selectedColors"></input>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <input type="text" id="keywordInput" class="form-control" placeholder="کلمات کلیدی را وارد کنید">
+    <div id="keywordList"></div>
+    <input name="KeyWord" type="hidden" class="text-center" id="keyword"></input>
+    <a onclick="clearAll()">حذف همه کلمات کلیدی</a>
+    <br />
+
+    <div class="fallback">
+        <h4>فایل اصلی</h4>
+        <input name="MainFile" type="file" multiple="multiple">
+    </div>
+
+    <br />
+    <br />
+
+    <button type="submit" class="btn btn-success">ایجاد فایل جدید</button>
+</form>
+
+
+
+
+
+<script>
+    function getSelectedOptions() {
+        const selectedOptions = Array.from(document.querySelectorAll('input[name="options[]"]:checked'))
+            .map(option => option.value);
+        const selectedOptionsString = selectedOptions.join(', ');
+        document.getElementById('selectedOptions').textContent = 'گزینه های انتخاب شده: ' + selectedOptionsString;
+    }
+</script>
+
+
+
+<script>
+    // آرایه برای ذخیره id های دکمه ها
+    let clickedIds = [];
+
+    function showButtonId(buttonId) {
+        // اگر id تکراری نباشد، آن را به آرایه اضافه کن
+        if (!clickedIds.includes(buttonId)) {
+            clickedIds.push(buttonId);
+        } else {
+            // اگر id تکراری بود، آن را حذف کن
+            clickedIds = clickedIds.filter(id => id !== buttonId);
+        }
+
+        // نمایش آرایه جدید در کنسول
+        console.log("Clicked button ids:", clickedIds);
+        printClickedIds()
+    }
+
+    // تابع برای چاپ آرایه clickedIds
+    function printClickedIds() {
+        document.getElementById("selectedColors").value = clickedIds
+        console.log("Current clicked button ids:", clickedIds);
+    }
+
+
+
+    const keywordInput = document.getElementById('keywordInput');
+    const keywordList = document.getElementById('keywordList');
+    const keyword = document.getElementById('keyword'); // May not be used in this example
+    const keywords = []; // Array to store keywords
+
+    function updateKeyword() {
+        const keywordString = keywords.join(',');
+        keyword.value = keywordString; // May not be used in this example
+        console.log(keyword.value);
+    }
+
+    function deleteKeyword(index) {
+        keywords.splice(index, 1);
+        updateKeyword();
+    }
+
+    keywordInput.addEventListener('input', (event) => {
+        const inputValue = event.target.value;
+        currentWord = inputValue;
+
+        if (inputValue.endsWith('  ')) {
+            if (!keywords.includes(currentWord.trim())) {
+                keywords.push(currentWord.trim());
+                const keywordElement = document.createElement('span');
+                keywordElement.textContent = currentWord.trim();
+                keywordElement.classList.add('keyword');
+
+                // Add click event listener dynamically
+                keywordElement.addEventListener('click', () => {
+                    keywordList.removeChild(keywordElement);
+                    const index = keywords.indexOf();
+                    console.log(index + " " + e);
+                    if (index > -1) {
+                        deleteKeyword(index);
+                        console.log(key);
+                    }
+
+
+                });
+
+                keywordList.appendChild(keywordElement);
+            }
+
+            currentWord = '';
+            event.target.value = '';
+        }
+        updateKeyword(); // Update displayed string even if no keyword added
+
+    });
+
+
+
+    function clearAll() {
+        // حذف همه عناصر فرزند keywordList
+        while (keywordList.firstChild) {
+            keywordList.removeChild(keywordList.firstChild);
+        }
+
+        // خالی کردن آرایه keywords
+        keywords.length = 0;
+
+        // به روزرسانی نمایش
+        updateKeyword();
+    }
+
+</script>

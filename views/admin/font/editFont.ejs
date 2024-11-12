@@ -1,0 +1,91 @@
+
+
+<form method="POST" action="/fonts/AddNewFont" enctype="multipart/form-data">
+
+    <div class="form-group row">
+        <label for="example-text-input" class="col-sm-2 col-form-label">نام فونت</label>
+        <div class="col-sm-10">
+            <input class="form-control" value="<%= font.FontName %>"  name="FontName" 
+                id="example-text-input">
+        </div>
+    </div>
+
+   
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input class="form-control"  name="FontParentId" type="hidden" value="<%= font.Id %>" id="example-email-input">
+        </div>
+    </div>
+
+    
+    <div class="form-group row">
+        <label for="example-email-input" class="col-sm-2 col-form-label">فرمت فونت</label>
+        <div class="col-sm-10">
+            <input class="form-control" value="<%= font.FontFormat %>"  name="FontFormat" 
+                id="example-email-input">
+        </div>
+    </div>
+
+
+
+    <br/>
+    <br/>
+    <div class="fallback">
+        <h4>پیش نمایش SVG فونت</h4>
+        <input name="PreviewFontFile" type="file">
+    </div>
+
+    <br/>
+    <br />
+
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+                <a class="btn " id="Persian" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: blue;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="English" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: green;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="Arabic" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: red;   width: 40px;
+                    height: 30px;"></a>
+
+   
+            </div>
+            <div class="col-6">
+                <input name="FontType" value="<%= font.FontType %>" class="text-center" id="FontType"></input>
+            </div>
+        </div>
+
+    </div>
+    <button type="submit" class="btn btn-success">ایجــاد فــــونت جدید</button>
+</form>
+
+
+
+
+<script>
+    // آرایه برای ذخیره id های دکمه ها
+    let clickedIds = [];
+
+    function showButtonId(buttonId) {
+        // اگر id تکراری نباشد، آن را به آرایه اضافه کن
+        if (!clickedIds.includes(buttonId)) {
+            clickedIds.push(buttonId);
+        } else {
+            // اگر id تکراری بود، آن را حذف کن
+            clickedIds = clickedIds.filter(id => id !== buttonId);
+        }
+
+        // نمایش آرایه جدید در کنسول
+        console.log("Clicked button ids:", clickedIds);
+        printClickedIds()
+    }
+
+    // تابع برای چاپ آرایه clickedIds
+    function printClickedIds() {
+        document.getElementById("FontType").value = clickedIds
+        console.log("Current clicked button ids:", clickedIds);
+    }
+</script>

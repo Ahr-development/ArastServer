@@ -1,0 +1,250 @@
+<div class="row">
+    <div class="col-10">
+        <h4 class="mt-0 header-title">دیزاین دسته بندی ها</h4>
+        <p class="text-muted m-b-30 font-14">مدیریت دسته بندی دیزاین های آراست</p>
+
+    </div>
+    <div class="col-2">
+        <a onclick="Add(0,'Category')" class="btn btn-success">ایجاد دسته بندی جدید</a>
+
+    </div>
+</div>
+
+
+<div id="accordion">
+
+
+    <% category.forEach(element=> { %>
+        <div class="card mb-0">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0 mt-0 font-14">
+                    <div class="row">
+                        <div class="col-8">
+                            <button onclick="fetchSubcategories(<%= element.Id %>)" data-toggle="collapse"
+                                data-parent="#accordion" href="#collapse<%= element.Id %>" aria-expanded="true"
+                                aria-controls="collapse<%= element.Id %>" class="text-dark">
+                                <%= element.CategoryName %>
+                            </button>
+                        </div>
+                        <div class="col-4">
+
+
+                            <button onclick="Edit(<%= element.Id %>,'Category')" class="btn-circle btn-warning"><i
+                                    class="mdi mdi-circle-edit-outline"></i></button>
+                            <button onclick="Delete(<%= element.Id %>,'Category')" class="btn-circle btn-danger"><i
+                                    class="mdi mdi-close-circle"></i></button>
+                            <button onclick="Add(<%= element.Id %>,'SubCategory')"
+                                class="btn-circle btn-success">+</button>
+
+                        </div>
+                    </div>
+
+                </h5>
+            </div>
+
+            <div id="collapse<%= element.Id %>" class="collapse " aria-labelledby="heading<%= element.Id %>"
+                data-parent="#accordion">
+                <div class="card-body">
+
+                    <table class="table mb-0">
+                        <tbody>
+                        <tbody id="subcategoryTable<%= element.Id %>"></tbody>
+                        </tbody>
+                    </table>
+                    <!--            <div class="table-responsive">
+                        <table class="table mb-0">
+                            <tbody>
+                              <tbody id="subcategoryTable<%= element.Id %>"></tbody>
+                            </tbody>
+                          </table>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <% }); %>
+
+
+</div>
+
+
+
+
+
+<script>
+
+    async function fetchSubcategories(id) {
+        try {
+            const response = await fetch('/category/getDesignCategory/' + id); // Replace '1' with the actual category ID
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+            }
+
+            const subcategories = await response.json();
+            renderSubcategoriesTable(subcategories, id);
+        } catch (error) {
+            console.error('Error:', error.message);
+            alert('Failed to fetch subcategories. Please try again.');
+        }
+    }
+
+
+    function renderSubcategoriesTable(subcategories, id) {
+        const tableBody = document.getElementById('subcategoryTable' + id);
+        tableBody.innerHTML = ''; // Clear previous table rows
+
+        if (subcategories.length > 0) {
+            subcategories.forEach(subcategory => {
+                const row = document.createElement('tr');
+                // Modify this line to display the desired properties from the subcategory object
+                row.innerHTML = `
+                <td>${subcategory.CategoryName}</td>
+                <td>
+                    <a onclick="Add(${subcategory.Id},'SubCategory')"  class="btn-circle btn-success"><i class="mdi mdi-plus"></i></a>
+                    <button onclick="Edit(${subcategory.Id},'SubCategory')"  class="btn-circle btn-warning"><i class="mdi mdi-circle-edit-outline"></i></button>
+                    <button onclick="Delete(${subcategory.Id},'SubCategory')"   class="btn-circle btn-danger"><i class="mdi mdi-close-circle"></i></button>
+                </td>
+                         `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="2">هیچ زیر دسته‌ای یافت نشد.</td>';
+            tableBody.appendChild(row);
+        }
+    }
+
+// Call the fetch function on page load or when needed
+
+
+
+
+</script>
+
+
+
+
+
+<!-- <script>
+
+
+    
+    // Function to fetch subcategories for a given categoryId
+    async function fetchSubcategories(categoryId) {
+        try {
+            console.log("/////////CLICKED +" + categoryId);
+            const response = await fetch(`/category/getCategory/${categoryId}`);
+            if (!response.ok) {
+                throw new Error('Failed to fetch subcategories');
+            }
+            const subcategories = await response.json();
+            renderSubcategoriesTable(subcategories, categoryId);
+        } catch (error) {
+            console.error('Error:', error.message);
+            alert('Failed to fetch subcategories. Please try again.');
+        }
+    }
+
+    // Function to render subcategories in a table
+    function renderSubcategoriesTable(subcategories, categoryId) {
+        const tableBody = document.querySelector(`#subcategoryTable tbody`);
+        tableBody.innerHTML = ''; // Clear previous table rows
+
+        if (subcategories.length > 0) {
+            subcategories.forEach(subcategory => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${subcategory.SubCategoryName}</td>
+                    <td>
+                      Add operations links if needed -->
+<!-- </td> -->
+<!--                 `;
+                tableBody.appendChild(row);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = '<td colspan="2">هیچ زیردسته‌ای برای این دسته بندی وجود ندارد.</td>';
+            tableBody.appendChild(row);
+        }
+    }
+</script> -->
+
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+
+
+
+
+<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div id="bodyModal" class="modal-body">
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+    function Delete(id, type) {
+        $.ajax({
+            url: "/category/deleteAssetCategory/" + id + "/" + type,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+
+
+    function Edit(id, type) {
+        $.ajax({
+            url: "/category/editAssetCategory/" + id + "/" + type,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+
+    function Add(id, type) {
+        $.ajax({
+            url: "/category/AddNewDesignCategory/" + id + "/" + type,
+            type: "Get",
+            data: {}
+        }).done(function (result) {
+            $('#myModal').modal('show');
+            $('#bodyModal').html(result);
+        });
+    }
+
+
+</script>

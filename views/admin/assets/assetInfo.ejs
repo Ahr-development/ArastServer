@@ -1,0 +1,96 @@
+<h5 class="text-center">توضیحات فایل گرافیکی</h5>
+
+<div class="row justify-content-center">
+
+    <div class="col-lg-8 col-lg-offset-2">
+
+        <div class="margin-top-50">
+
+            <h3 class="">
+                <a href="/Admin/ShowAllProduct" class="btn btn-danger btn-block">بازگشت</a>
+            </h3>
+
+        </div>
+
+
+        <div>
+
+            <table class="table table-bordered table-hover" id="myTable">
+
+                <tbody>
+
+
+                    <tr>
+                        <td>
+                            <p>نام فارسی فایل گرافیکی</p>
+                        </td>
+                        <td>
+                            <p><%= local.assets.PersianName %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>نام انگلیسی فایل گرافیکی</p>
+                        </td>
+                        <td>
+                            <p><%= local.assets.EnglishName %></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>نام عربی فایل گرافیکی</p>
+                        </td>
+                        <td>
+                            <p><%= local.assets.ArabicName %></p>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            <p>توضیحات</p>
+                        </td>
+                        <td>
+                            <p><%= local.assets.Description %></p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>قیمت به تومان ایران - قیمت به دلار ایران</p>
+                        </td>
+                        <td>
+                            <p><%= local.assets.PriceIRR %> تومان ایران</p> || <p><%= local.assets.PriceUSD %> دلار آمریکا</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>رنگ های مورد استفاده</p>
+                        </td>
+                        <td>
+
+
+                            <p style="color:green;"><%= local.assets.ColorUsing %></p>
+
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>لینک محصول</p>
+                        </td>
+                        <td>
+                            <a href="<%= local.assetLink %>">بازدید از محصول</a>
+                        </td>
+                    </tr>
+                  
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+
+    </div>

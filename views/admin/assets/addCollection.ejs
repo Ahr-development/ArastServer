@@ -1,0 +1,157 @@
+
+
+
+<form id="dynamic-form" method="POST" action="/asset/AddCollectionByCategory" enctype="multipart/form-data" >
+    
+    <div class="form-group row">
+        <label for="example-text-input" class="col-sm-2 col-form-label">عنوان فایل فارسی</label>
+        <div class="col-sm-10">
+            <input class="form-control" name="PersianName" id="example-text-input">
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="row">
+
+            <div class="col-6">
+                <a class="btn " id="blue" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: blue;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="green" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: green;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="red" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: red;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="yellow" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: yellow;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="orange" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block; background-color: orange;    width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="pink" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: pink;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="white" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: white;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="black" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: black;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn" id="Gray" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: gray;   width: 40px;
+                    height: 30px;"></a>
+                <a class="btn " id="Brown" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: brown;   width: 40px;
+                    height: 30px;"></button>
+                    <a class="btn " id="Cyan" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: cyan;   width: 40px;
+                    height: 30px;"></button>
+                        <a class="btn " id="Purple" onclick="showButtonId(this.id)" name="options[]" style="display: inline-block;  background-color: purple;   width: 40px;
+                    height: 30px;"></a>
+
+            </div>
+            <div class="col-6">
+                <input name="ColorUsing" class="text-center form-control" id="selectedColors"></input>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+    <input type="text" name="keywordInput" class="form-control" placeholder="کلمات کلیدی را وارد کنید">
+
+    <br />
+
+
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <input class="form-control" name="CategoryId" type="hidden" value="<%= categoryId %>"
+                id="example-email-input">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="example-email-input" class="col-sm-2 col-form-label">توضیحات فایل فارسی</label>
+        <div class="col-sm-10">
+            <textarea class="form-control" name="Description" id="example-email-input"></textarea>
+        </div>
+    </div>
+
+    <select name="SubCategoryId"  class="custom-select">
+        <% subCategories.forEach(subCategory => { %>
+            <option value="<%= subCategory.Id %>"><%= subCategory.SubCategoryName %></option>
+        <% }); %>
+    </select>
+
+
+    <br/>
+    <br/>
+
+
+    <button type="button" class="btn btn-warning btn-block" id="add-section-btn">ایجاد بخش جدید</button>
+    <br/>
+    <br/>
+
+    <div id="form-container"></div>
+    <br/>
+    <br/>
+
+    <button type="submit" class="btn btn-success">ایجاد کالکشن جدید</button>
+</form>
+
+
+<script>
+    let sectionIndex = 0;
+
+    document.getElementById('add-section-btn').addEventListener('click', function () {
+        const formContainer = document.getElementById('form-container');
+        const newSection = document.createElement('div');
+        newSection.classList.add('form-section');
+        newSection.innerHTML = `
+        <br/>
+
+            <input type="file" name="file_${sectionIndex}" required>
+            <input type="text"  class="form-control" name="hashtags_${sectionIndex}" placeholder="هشتگ ها" required>
+            <input type="text"  class="form-control" name="fileName_${sectionIndex}" placeholder="نام فایل" required>
+            <br/>
+
+        `;
+        formContainer.appendChild(newSection);
+        sectionIndex++;
+    });
+
+
+</script>
+
+
+
+<script>
+    function getSelectedOptions() {
+        const selectedOptions = Array.from(document.querySelectorAll('input[name="options[]"]:checked'))
+            .map(option => option.value);
+        const selectedOptionsString = selectedOptions.join(', ');
+        document.getElementById('selectedOptions').textContent = 'گزینه های انتخاب شده: ' + selectedOptionsString;
+    }
+</script>
+
+
+
+<script>
+    // آرایه برای ذخیره id های دکمه ها
+    let clickedIds = [];
+
+    function showButtonId(buttonId) {
+        // اگر id تکراری نباشد، آن را به آرایه اضافه کن
+        if (!clickedIds.includes(buttonId)) {
+            clickedIds.push(buttonId);
+        } else {
+            // اگر id تکراری بود، آن را حذف کن
+            clickedIds = clickedIds.filter(id => id !== buttonId);
+        }
+
+        // نمایش آرایه جدید در کنسول
+        console.log("Clicked button ids:", clickedIds);
+        printClickedIds()
+    }
+
+    // تابع برای چاپ آرایه clickedIds
+    function printClickedIds() {
+        document.getElementById("selectedColors").value = clickedIds
+        console.log("Current clicked button ids:", clickedIds);
+    }
+
+
+
+
+</script>

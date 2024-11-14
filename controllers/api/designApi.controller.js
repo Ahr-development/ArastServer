@@ -243,23 +243,8 @@ router.post('/getUserDesignByLink', async (req, res) => {
                 if (design !== null && design[0].UserId == UserId) {
                     return res.json(design)
                 }
-                else {
-                    const access = await usersService.findAnyUserDesignAccess(UserId)
-
-                    if (access !== null) {
-                        console.log(design.DesignLink);
-                        return res.json(design)
-
-                    }
-                    else {
-                        return res.status(500).json("NOTACCESS")
-                    }
-                }
 
             }
-
-
-
 
 
         }

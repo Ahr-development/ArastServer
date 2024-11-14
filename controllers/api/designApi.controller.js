@@ -247,6 +247,7 @@ router.post('/getUserDesignByLink', async (req, res) => {
                     const access = await usersService.findAnyUserDesignAccess(UserId)
 
                     if (access !== null) {
+                        console.log(design.DesignLink);
                         return res.json(design)
 
                     }

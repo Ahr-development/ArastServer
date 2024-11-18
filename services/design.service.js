@@ -254,6 +254,7 @@ const getStoreDesignByDesignTypeIdAndPage = async (page, DesignTypeId) => {
 
 
 
+
 const findDesignById = async (id) => {
     return await db.Design.findByPk(id);
 };

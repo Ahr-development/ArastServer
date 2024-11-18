@@ -993,4 +993,57 @@ router.post('/setNewNameForUserDesign', async (req, res) => {
 
 
 
+
+router.post('/getTopDesignsByDesignTypesInDashboard', async (req, res) => {
+
+    try {
+
+        const UserId = req.body.UserId
+        const Stoken = req.body.Stoken
+
+        if (UserId !== null && Stoken !== null) {
+
+            //احراز هویت
+            const authCheck = await AuthenticateCheck(UserId, Stoken)
+
+            if (authCheck === true) {
+
+                const allTypes = await designService.getAllDesignTypes()
+                const designsByTypes = []
+
+                if (allTypes) {
+
+
+                    for (let index = 0; index < allTypes.length; index++) {
+                        const type = allTypes[index];
+                        const designs = await designService.getStoreDesignByDesignTypeIdAndPage(1,type)
+
+                        if (designs) {
+                            
+                            designsByTypes.push({
+                                DesignTypeId : type.Id,
+                                DesignTypeCategoryId : type.DesignTypeCategoryId,
+                                DesignTypeName : type.DesignName,
+                                Designs : designs
+                            })
+                        }
+                    }
+
+
+                    return res.json(designsByTypes)
+
+                }
+            }
+
+
+        }
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error fetching users');
+    }
+});
+
+
+
 module.exports = router;

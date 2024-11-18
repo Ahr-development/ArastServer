@@ -1016,15 +1016,36 @@ router.post('/getTopDesignsByDesignTypesInDashboard', async (req, res) => {
 
                     for (let index = 0; index < allTypes.length; index++) {
                         const type = allTypes[index];
-                        const designs = await designService.getStoreDesignByDesignTypeIdAndPage(1,type)
+                        const designs = await designService.getStoreDesignByDesignTypeIdAndPage(1,type.Id)
 
                         if (designs) {
                             
+                            const readyDesigns = []
+
+                            for (let index = 0; index < designs.length; index++) {
+                                const des = designs[index];
+                                const store = await storeService.findStoreById(des.StoreId)
+
+                                if (store) {
+                                    readyDesigns.push({
+                                        DesignName: des.DesignName,
+                                        DesignDescription: des.Description,
+                                        DesignShowImage: des.DesignShowImage,
+                                        DesignDateCreated: des.DesignDateCreated,
+                                        DesignLink: des.DesignLink,
+                                        StoreName : store.StoreName,
+                                        StoreProfile : store.StoreProfile
+                                    })
+                                    
+                                }
+                       
+                            }
+
                             designsByTypes.push({
                                 DesignTypeId : type.Id,
                                 DesignTypeCategoryId : type.DesignTypeCategoryId,
                                 DesignTypeName : type.DesignName,
-                                Designs : designs
+                                Designs : readyDesigns
                             })
                         }
                     }

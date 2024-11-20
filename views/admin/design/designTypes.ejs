@@ -20,17 +20,23 @@
 
             <div class="card m-b-30 col-3">
                 <img class="card-img-top img-fluid"
-                    src="https://arastme.storage.c2.liara.space/<%= element.DesignCategoryPhoto %> "
+                    src="https://s3.ir-thr-at1.arvanstorage.ir/<%= element.DesignCategoryPhoto %> "
                     alt="Card image cap">
                 <div class="card-body">
-                    <h4 class="card-title font-16 mt-0"><%= element.DesignName %> </h4>
-                    <h4 class="text-success text-center"> ارتفاع : <%= element.DesignHeight %> </h4>
-                    <h4 class="text-success text-center"> عرض : <%= element.DesignWidth %> </h4>
+                    <h4 class="card-title font-16 mt-0">
+                        <%= element.DesignName %>
+                    </h4>
+                    <h4 class="text-success text-center"> ارتفاع : <%= element.DesignHeight %>
+                    </h4>
+                    <h4 class="text-success text-center"> عرض : <%= element.DesignWidth %>
+                    </h4>
 
 
                     <a href="#" class="btn btn-primary waves-effect waves-light">کنترل طرح های موجود</a>
-                    <a onclick="Edit( <%= element.Id %>)" class="btn btn-warning waves-effect waves-light">ویرایش توضیحات دیزاین</a>
-                    <a  onclick="EditPhoto( <%= element.Id %>)" class="btn btn-danger waves-effect waves-light">ویرایش عکس دیزاین</a>
+                    <a onclick="Edit( <%= element.Id %>)" class="btn btn-warning waves-effect waves-light">ویرایش
+                        توضیحات دیزاین</a>
+                    <a onclick="EditPhoto( <%= element.Id %>)" class="btn btn-danger waves-effect waves-light">ویرایش
+                        عکس دیزاین</a>
 
                 </div>
             </div>
@@ -96,7 +102,7 @@
         });
     }
 
-    
+
 
 
     function Edit(id) {

@@ -5,8 +5,10 @@
                 <div class="ibox-content">
                     <div class="file-manager">
                         <h5>بسته های فایلی</h5>
-                        <h2><%= category.CategoryPersianName %></h2>
-                        <br/>
+                        <h2>
+                            <%= category.CategoryPersianName %>
+                        </h2>
+                        <br />
 
                         <a href="/asset" class="btn btn-primary btn-block">بازگشت به فایلها</a>
                         <div class="hr-line-dashed"></div>
@@ -32,21 +34,21 @@
                                             <div class="col-md-3">
                                                 <img alt="image collection-image"
                                                     class="img-responsive collection-image"
-                                                    src="https://arastme.storage.c2.liara.space/<%= element.AssetsStaticFile %>">
+                                                    src="https://s3.ir-thr-at1.arvanstorage.ir/<%= element.AssetsStaticFile %>">
                                             </div>
                                             <% }) %>
 
 
 
 
-        
+
 
 
                                     </div>
                                     <div class="file-name">
                                         <%= element.CollectionName %>
-                                        <br>
-                                        <small>تاریخ ندارد</small>
+                                            <br>
+                                            <small>تاریخ ندارد</small>
                                     </div>
                                 </a>
 

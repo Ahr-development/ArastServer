@@ -1,9 +1,11 @@
 <div class="container">
     <div class="row">
-        <br/>
-        <h3 class="text-center">فروشگاه  <%= store.StoreName %> </h3>
-        <p>@<%= store.StoreUserName %></p>
-        <br/>
+        <br />
+        <h3 class="text-center">فروشگاه <%= store.StoreName %>
+        </h3>
+        <p>@<%= store.StoreUserName %>
+        </p>
+        <br />
     </div>
     <div class="row justify-content-center product-grid-style">
 
@@ -19,7 +21,7 @@
                             <% } else{ %>
                                 <div class="label-offer bg-red">تایید نشده</div>
                                 <%} %>
-                                    <img src="https://arastme.storage.c2.liara.space/<%= design.DesignShowImage %>"
+                                    <img src="https://s3.ir-thr-at1.arvanstorage.ir/<%= design.DesignShowImage %>"
                                         class="img-design" alt="...">
 
                                     <div class="product-cart">
@@ -34,7 +36,9 @@
                             <%= design.DesignName %>
                         </a>
                         <p class="price text-center m-0">
-                            <span><%= design.DesignDescription %></span>
+                            <span>
+                                <%= design.DesignDescription %>
+                            </span>
                         </p>
                     </div>
 
@@ -279,7 +283,7 @@
     }
 
 
-    .bg-green{
+    .bg-green {
         background-color: green;
     }
 </style>

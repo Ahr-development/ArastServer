@@ -4,12 +4,18 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
                     <div class="file-manager">
-                        <h5><%= category.CategoryPersianName %></h5>
-                        <h2><%= getCollection.PersianName %></h2>
-                        <br/>
+                        <h5>
+                            <%= category.CategoryPersianName %>
+                        </h5>
+                        <h2>
+                            <%= getCollection.PersianName %>
+                        </h2>
+                        <br />
 
-                        <a href="/asset/Collection/<%= category.Id %>" class="btn btn-primary btn-block">بازگشت به پک ها</a>
-                        <button onclick="AddCollection(<%= getCollection.Id %>)" class="btn btn-success btn-block">ایجاد سری فایل جدید</button>
+                        <a href="/asset/Collection/<%= category.Id %>" class="btn btn-primary btn-block">بازگشت به پک
+                            ها</a>
+                        <button onclick="AddCollection(<%= getCollection.Id %>)" class="btn btn-success btn-block">ایجاد
+                            سری فایل جدید</button>
 
                         <div class="hr-line-dashed"></div>
 
@@ -27,17 +33,21 @@
                             <div class="file">
                                 <a href="#">
                                     <span class="corner"></span>
-        
+
                                     <div class="image arast-collect-div">
-                                        <img alt="image" style="max-width: -webkit-fill-available;" class="img-responsive" src="https://arastme.storage.c2.liara.space/<%= element.AssetsStaticFile %>">
+                                        <img alt="image" style="max-width: -webkit-fill-available;"
+                                            class="img-responsive"
+                                            src="https://s3.ir-thr-at1.arvanstorage.ir/<%= element.AssetsStaticFile %>">
                                     </div>
                                     <div class="file-name">
                                         <%= element.PersianName %>
-                                        <br>
-                                        <small><%= element.EnglishName %></small>
+                                            <br>
+                                            <small>
+                                                <%= element.EnglishName %>
+                                            </small>
                                     </div>
                                 </a>
-        
+
                             </div>
                         </div>
                         <% }) %>
@@ -57,9 +67,9 @@
 <script>
 
 
-function AddCollection(id) {
+    function AddCollection(id) {
         $.ajax({
-            url: "/asset/OverrideCollection/" + id ,
+            url: "/asset/OverrideCollection/" + id,
             type: "Get",
             data: {}
         }).done(function (result) {
@@ -295,7 +305,7 @@ function AddCollection(id) {
         padding: 10px 15px;
     }
 
-    .arast-collect-div{
+    .arast-collect-div {
         display: flex;
         place-content: center;
     }

@@ -114,6 +114,8 @@ async function CompressAndSaveImage(imageFileName, imageBuffer, format) {
   const paramsForCompressedImage = {
     Bucket: 'arastme',
     Key: fileName,
+            ACL: 'public-read',
+
     Body: compressedImage,
   };
 
@@ -161,6 +163,8 @@ router.post('/UploadNewFileByUserArast', upload.single('File'), async (req, res)
       const paramsForMain = {
         Bucket: 'arastme',
         Key: FileNameAndAddress,
+        ACL: 'public-read',
+
         Body: MAIN_BUFFER
       };
 

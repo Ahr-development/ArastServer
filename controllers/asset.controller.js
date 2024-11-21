@@ -72,6 +72,8 @@ const uploadFile = async (file, fileName,buffer) => {
   const paramsForMain = {
     Bucket: 'arastme',
     Key: fileName,
+    ACL: 'public-read',
+
     Body: fileStream
   };
 
@@ -107,6 +109,8 @@ async function CompressAndSaveImage(imageFileName, imageBuffer, format) {
   const paramsForCompressedImage = {
     Bucket: 'arastme',
     Key: imageFileName,
+    ACL: 'public-read',
+
     Body: compressedImage,
   };
 
@@ -323,6 +327,8 @@ router.post('/AddCollectionByCategory', authMiddleware, upload.any(), async (req
         const paramsForMain = {
           Bucket: 'arastme',
           Key: staticFileName,
+          ACL: 'public-read',
+
           Body: pngBuffer
         };
       
@@ -417,7 +423,10 @@ router.post('/UploadAsset', authMiddleware, upload.single('MainFile'), async (re
     const paramsForMain = {
       Bucket: 'arastme',
       Key: newMainFilename,
+      ACL: 'public-read',
+
       Body: MAIN_BUFFER
+      
     };
 
 
@@ -599,6 +608,8 @@ router.post('/OverrideCollection', authMiddleware, upload.any(), async (req, res
         const paramsForMain = {
           Bucket: 'arastme',
           Key: staticFileName,
+          ACL: 'public-read',
+
           Body: pngBuffer
         };
       

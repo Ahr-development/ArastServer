@@ -101,6 +101,7 @@ const uploadFile = async (key, jsonData) => {
     const params = {
         Bucket: 'arastme',
         Key: key,
+        ACL: 'public-read',
         Body: JSON.stringify(jsonData),
         ContentType: 'application/json',
     };
@@ -366,12 +367,16 @@ router.post('/overrideDesignAndSaveDesign', upload.single('Image'), async (req, 
                 const paramsForCanvas = {
                     Bucket: 'arastme',
                     Key: FileNameAndAddress,
+                    ACL: 'public-read',
+
                     Body: Canvas
                 };
 
                 const paramsForImage = {
                     Bucket: 'arastme',
                     Key: ImageNameAndAddress,
+                    ACL: 'public-read',
+
                     Body: MAIN_BUFFER
                 };
 
@@ -507,6 +512,8 @@ router.post('/setDesignForCurrentUser', async (req, res) => {
                     const paramsForFiles = {
                         Bucket: 'arastme',
                         Key: FileNameAndAddress,
+                        ACL: 'public-read',
+
                         Body: JSON.stringify(designFile),  // تبدیل محتوا به رشته
                         ContentType: 'application/json'   // افزودن نوع محتوا             
                     };
@@ -800,6 +807,8 @@ router.post('/createNewUserDesignByPublicDesign', async (req, res) => {
                         const paramsForFiles = {
                             Bucket: 'arastme',
                             Key: FileNameAndAddress,
+                            ACL: 'public-read',
+
                             Body: JSON.stringify(designFile),  // تبدیل محتوا به رشته
                             ContentType: 'application/json'   // افزودن نوع محتوا             
                         };

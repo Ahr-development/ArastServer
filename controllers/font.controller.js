@@ -129,12 +129,16 @@ router.post('/AddNewFont', authMiddleware, upload.fields([{ name: 'FontFile' }, 
         const paramsForStatic = {
             Bucket: 'arastme',
             Key: newStaticFilename,
+            ACL: 'public-read',
+
             Body: STATIC_BUFFER
         };
 
         const paramsForMain = {
             Bucket: 'arastme',
             Key: newMainFilename,
+            ACL: 'public-read',
+
             Body: MAIN_BUFFER
         };
 
@@ -258,6 +262,8 @@ router.post('/EditFont', authMiddleware, upload.single('PreviewFontFile'), async
             const paramsForStatic = {
                 Bucket: 'arastme',
                 Key: newStaticFilename,
+                ACL: 'public-read',
+
                 Body: STATIC_BUFFER
             };
 

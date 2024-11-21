@@ -229,6 +229,8 @@ router.post('/createStoreDesignCollection', upload.single('CollectionLogo'), asy
                     const paramsForImage = {
                         Bucket: 'arastme',
                         Key: ImageNameAndAddress,
+                        ACL: 'public-read',
+
                         Body: MAIN_BUFFER
                     };
 
@@ -382,12 +384,16 @@ router.post('/PublishStoreDesign', upload.single('Image'), async (req, res) => {
                         const paramsForCanvas = {
                             Bucket: 'arastme',
                             Key: FileNameAndAddress,
+                            ACL: 'public-read',
+
                             Body: Canvas
                         };
 
                         const paramsForImage = {
                             Bucket: 'arastme',
                             Key: ImageNameAndAddress,
+                            ACL: 'public-read',
+
                             Body: MAIN_BUFFER
                         };
 

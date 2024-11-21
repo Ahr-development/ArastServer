@@ -138,6 +138,8 @@ router.post('/AddNewDesignType', upload.single('DesignCategoryPhoto'), async (re
         const paramsForMain = {
             Bucket: 'arastme',
             Key: FileNameAndAddress,
+            ACL: 'public-read',
+
             Body: MAIN_BUFFER
         };
 
@@ -220,6 +222,8 @@ router.post('/EditDesignTypePhotoDashboard', upload.single('DesignCategoryPhoto'
         const paramsForMain = {
             Bucket: 'arastme',
             Key: FileNameAndAddress,
+            ACL: 'public-read',
+
             Body: MAIN_BUFFER
         };
 

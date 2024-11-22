@@ -50,7 +50,7 @@ const designTypesCategory = require("../models/designTypesCategory.model");
 require("dotenv").config();
 
 
-const sequelize = new Sequelize('Arast',"horay", "1383", {
+const sequelize = new Sequelize('Arast',"horay", "13831383", {
   host: 'DESKTOP-0LK6D76', // یا هر host دیگر
   dialect: 'mssql',
   port: 1433,
@@ -62,6 +62,7 @@ const sequelize = new Sequelize('Arast',"horay", "1383", {
     }
   }
 });
+
 
 
 

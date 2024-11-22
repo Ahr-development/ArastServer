@@ -918,6 +918,7 @@ router.post('/getDesignsByDesignCategory', async (req, res) => {
         const Stoken = req.body.Stoken
         const CategoryId = req.body.CategoryId
         const Page = req.body.Page
+        const DesignTypeCategory = req.body.DesignType
 
         if (UserId !== null && Stoken !== null && CategoryId !== null && Page !== null) {
 
@@ -925,12 +926,19 @@ router.post('/getDesignsByDesignCategory', async (req, res) => {
             const authCheck = await AuthenticateCheck(UserId, Stoken)
 
             if (authCheck === true) {
-
-                const design = await designService.getDesignsByCategoryIdAndPage(Page, CategoryId)
+                let design = await designService.getDesignsByCategoryIdAndPage(Page, CategoryId)
 
                 const secured = []
                 if (design) {
-
+                    if (DesignTypeCategory !== null) {
+                        const types = await designService.getAllDesignTypesByTypeCategory(DesignTypeCategory)
+                        // فیلتر کردن دیزاین‌ها بر اساس شرط DesignTypeId !== types[index].Id
+                        // فرض بر این است که برای هر type یک index داریم که باید چک شود
+                        design = design.filter(d => {
+                            // در اینجا برای هر طراحی بررسی می‌کنیم که آیا DesignTypeId با هیچکدام از types[index].Id برابر نیست
+                            return types.some(type => d.DesignTypeId === type.Id);
+                        });
+                    }
                     for (let index = 0; index < design.length; index++) {
                         const des = design[index]
                         const store = await storeService.findStoreById(des.StoreId)
@@ -984,7 +992,7 @@ router.post('/setNewNameForUserDesign', async (req, res) => {
                 const design = await designService.getDesignInitByUserDesignId(DesignId)
 
                 if (design) {
-                    await designService.updateNameOfUserDesign(DesignId,DesignName)
+                    await designService.updateNameOfUserDesign(DesignId, DesignName)
                     return res.status(200).json("OK")
 
                 }
@@ -1025,10 +1033,10 @@ router.post('/getTopDesignsByDesignTypesInDashboard', async (req, res) => {
 
                     for (let index = 0; index < allTypes.length; index++) {
                         const type = allTypes[index];
-                        const designs = await designService.getStoreDesignByDesignTypeIdAndPage(1,type.Id)
+                        const designs = await designService.getStoreDesignByDesignTypeIdAndPage(1, type.Id)
 
                         if (designs) {
-                            
+
                             const readyDesigns = []
 
                             for (let index = 0; index < designs.length; index++) {
@@ -1042,19 +1050,19 @@ router.post('/getTopDesignsByDesignTypesInDashboard', async (req, res) => {
                                         DesignShowImage: des.DesignShowImage,
                                         DesignDateCreated: des.DesignDateCreated,
                                         DesignLink: des.DesignLink,
-                                        StoreName : store.StoreName,
-                                        StoreProfile : store.StoreProfile
+                                        StoreName: store.StoreName,
+                                        StoreProfile: store.StoreProfile
                                     })
-                                    
+
                                 }
-                       
+
                             }
 
                             designsByTypes.push({
-                                DesignTypeId : type.Id,
-                                DesignTypeCategoryId : type.DesignTypeCategoryId,
-                                DesignTypeName : type.DesignName,
-                                Designs : readyDesigns
+                                DesignTypeId: type.Id,
+                                DesignTypeCategoryId: type.DesignTypeCategoryId,
+                                DesignTypeName: type.DesignName,
+                                Designs: readyDesigns
                             })
                         }
                     }

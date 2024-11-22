@@ -101,9 +101,9 @@ async function CompressAndSaveImage(imageFileName, imageBuffer, format) {
 
   // تنظیم کیفیت تصویر بر اساس فرمت
   if (format === 'image/jpeg') {
-    imagePipeline = imagePipeline.jpeg({ quality: 80 });
+    imagePipeline = imagePipeline.jpeg({ quality: 50 });
   } else if (format === 'image/png') {
-    imagePipeline = imagePipeline.png({ quality: 80 });
+    imagePipeline = imagePipeline.png({ quality: 50 });
   } else {
     throw new Error(`Unsupported format: ${format}`);
   }

@@ -8,6 +8,15 @@ const getAllDesignTypes = async () => {
 };
 
 
+const getAllDesignTypesByTypeCategory = async (DesignTypeCategoryId) => {
+
+    const type = await db.DesignType.findAll({
+        where: { DesignTypeCategoryId: DesignTypeCategoryId },
+    });
+    return type;
+};
+
+
 const getAllDesignTypeCategories = async () => {
     return await db.DesignTypesCategory.findAll();
 };
@@ -307,5 +316,6 @@ module.exports = {
     getUserDesignByLinkAndUserDesignId,
     findParentUserDesign,
     getDesignsByCategoryIdAndPage,
-    updateNameOfUserDesign
+    updateNameOfUserDesign,
+    getAllDesignTypesByTypeCategory
 };

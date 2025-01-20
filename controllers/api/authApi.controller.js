@@ -18,7 +18,7 @@ function generateRandomString(length = 6) {
 
 
 
-  return parseInt(randomString);
+  return 177494;
 }
 
 

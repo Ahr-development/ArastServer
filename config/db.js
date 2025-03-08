@@ -50,19 +50,18 @@ const designTypesCategory = require("../models/designTypesCategory.model");
 require("dotenv").config();
 
 
+
 const sequelize = new Sequelize('Arast',"horay", "13831383", {
-  host: 'DESKTOP-0LK6D76', // یا هر host دیگر
+  host: 'DESKTOP-LKFSA9D', // یا هر host دیگر
   dialect: 'mssql',
   port: 1433,
   dialectOptions: {
     options: {
       encrypt: false, // این گزینه می‌تواند true یا false باشد بسته به نیاز شما
-      trustServerCertificate: true,
-      requestTimeout : 300000
+      trustServerCertificate: true
     }
   }
 });
-
 
 
 

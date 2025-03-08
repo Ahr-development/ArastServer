@@ -18,7 +18,7 @@ function generateRandomString(length = 6) {
 
 
 
-  return 177494;
+  return parseInt(randomString);
 }
 
 
@@ -261,6 +261,26 @@ router.post('/SignUpNewUser', async (req, res) => {
 
 
 
+
+
+router.post('/GetActiveCodeBeta', async (req, res) => {
+
+  const mobile = req.body.mobile; // Get the count parameter
+  if (mobile != null) {
+
+    try {
+      const getUser = await authService.findUserByMobile(mobile)
+
+      if (getUser != null) {
+        ////////// ارسال پیامک تایید
+        return res.json(getUser.ActiveCode)
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error fetching users');
+    }
+  }
+});
 
 
 

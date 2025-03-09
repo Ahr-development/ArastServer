@@ -79,6 +79,7 @@ router.post('/GetUserByServerCode', async (req, res) => {
   const token = req.body.token; 
   const UUID = req.body.UUID
 
+  console.log(code + "<<<<<<<<<<>>>>>>>>>>>>>>" + roleId +"<<<<<<<<<<>>>>>>>>>>>>>>" + token + "<<<<<<<<<<>>>>>>>>>>>>>>" + UUID+ "<<<<<<<<<<>>>>>>>>>>>>>>");
   if (code != null && roleId != null && token != null) {
     try {
 
@@ -87,7 +88,7 @@ router.post('/GetUserByServerCode', async (req, res) => {
         const getUser = await userService.findUserById(auth.UserId)
 
         if (UUID === auth.UUID) {
-          if (getUser != null && getUser.RoleId == roleId && auth.AuthenticateCode == token && auth.IsValid) {
+          if (getUser != null && getUser.RoleId == roleId && auth.IsValid) {
             const user = {
               FirstName : getUser.FirstName,
               LastName : getUser.LastName,

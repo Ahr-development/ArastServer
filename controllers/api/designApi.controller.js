@@ -583,7 +583,7 @@ router.post('/getUserDesignByAccessCollection', async (req, res) => {
 
             }
             else {
-                res.status(404).send('NO');
+                res.status(204).send('NO');
 
             }
         }

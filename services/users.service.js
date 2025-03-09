@@ -33,6 +33,7 @@ const createNewUser = async (ActiveCode, RoleId, FirstName, LastName, Password, 
     Password,
     Mobile,
     IsActivateNumber,
+    IsBan : false,
   });
 
   return user;
